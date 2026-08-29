@@ -1,0 +1,657 @@
+/* CSS for Divisibility as Equal Grouping Visual Proof */
+
+.div-page-container {
+  display: grid;
+  grid-template-columns: 118px 1fr;
+  min-height: 100vh;
+  background: radial-gradient(circle at 42% 0%, #ffffff 0%, #f3f2ff 38%, #ececff 100%);
+  padding: 9px 31px 14px 8px;
+  gap: 28px;
+}
+
+.div-content {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+  max-width: 1500px;
+  width: 100%;
+}
+
+/* Header customization */
+.vp2-top {
+  display: grid;
+  grid-template-columns: minmax(720px, 1fr) auto;
+  padding-top: 0;
+  align-items: start;
+}
+
+.vp2-top h1 {
+  font-size: 49px;
+  line-height: 1;
+  margin-top: 8px;
+  font-weight: 800;
+  color: #09143d;
+}
+
+.vp2-top p {
+  font-size: 21px;
+  color: #5360a6;
+  margin: 4px 0 0;
+}
+
+/* Mode toggles inside the mission strip */
+.vp2-mission {
+  height: 91px;
+  margin-top: -1px;
+  padding: 17px 22px;
+  gap: 16px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #dedcf0;
+  background: rgba(255,255,255,.72);
+  border-radius: 18px;
+  box-shadow: 0 14px 28px rgba(38,35,100,.12);
+}
+
+.vp2-mission span {
+  color: #394483;
+  line-height: 1.35;
+  font-size: 15.5px;
+}
+
+.mode-tabs {
+  margin-left: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 126px);
+  height: 54px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(255,255,255,.5);
+  border: 1px solid #dedcf0;
+}
+
+.mode-tabs button {
+  border: 0;
+  border-left: 1px solid #eeeef8;
+  background: rgba(255,255,255,.55);
+  color: #202b73;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.mode-tabs button:first-child {
+  border-left: 0;
+}
+
+.mode-tabs button:hover:not(.active) {
+  background: rgba(91, 44, 255, 0.05);
+}
+
+.mode-tabs button.active {
+  color: #fff;
+  background: linear-gradient(135deg,#8b66ff,#5a2cf0);
+  box-shadow: 0 11px 20px rgba(72,42,220,.32);
+  border-radius: 10px;
+  margin: 0;
+  border: none;
+}
+
+/* Workspace layout */
+.vp2-workspace {
+  display: grid;
+  grid-template-columns: minmax(820px, 1fr) 316px;
+  gap: 18px;
+  align-items: start;
+}
+
+.group-lab {
+  min-height: 545px;
+  padding: 16px;
+  overflow: hidden;
+  background: rgba(255,255,255,.58);
+  border: 1px solid #dedcf0;
+  border-radius: 20px;
+  box-shadow: 0 13px 28px rgba(33,31,90,.10);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Division Equation Header */
+.equation {
+  height: 46px;
+  display: grid;
+  grid-template-columns: 1fr 70px 1fr 210px;
+  align-items: center;
+  text-align: center;
+  font: 28px Georgia, serif;
+  color: #050f4a;
+}
+
+.equation b {
+  color: #26317f;
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 500;
+}
+
+.equation em {
+  font: 16px "Segoe UI", sans-serif;
+  color: #243096;
+  font-style: normal;
+}
+
+/* Counters Tray */
+.counter-tray {
+  height: 146px;
+  border: 1px solid #dedcf0;
+  border-radius: 18px;
+  background: rgba(255,255,255,.66);
+  box-shadow: inset 0 0 0 10px rgba(247,247,255,.65);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  padding: 17px 20px;
+  gap: 16px 18px;
+  max-width: 760px;
+  margin: 10px 0;
+}
+
+/* Draggable Dot Styling */
+.dot {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #07154c;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 8px 13px rgba(42,42,90,.22), inset 0 1px 4px rgba(255,255,255,.9);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  transition: transform 0.1s ease;
+}
+
+.dot:active {
+  cursor: grabbing;
+  transform: scale(1.1);
+}
+
+.dot.blue {
+  background: radial-gradient(circle at 32% 25%, #b8d5ff, #6ba4f6 70%);
+  border: 1px solid #4b7bd6;
+}
+
+.dot.green {
+  background: radial-gradient(circle at 32% 25%, #c5f4d2, #75d891 70%);
+  border: 1px solid #49b66d;
+}
+
+.dot.gold {
+  background: radial-gradient(circle at 32% 25%, #ffe7a6, #ffc44d 70%);
+  border: 1px solid #e69d1e;
+}
+
+.dot.violet {
+  background: radial-gradient(circle at 32% 25%, #d8c3ff, #9e7aff 70%);
+  border: 1px solid #7750dd;
+}
+
+.dot.red {
+  background: radial-gradient(circle at 32% 25%, #ffd2d8, #ff8490 70%);
+  border: 1px solid #f25a68;
+}
+
+.dot.ghost {
+  background: rgba(255,255,255,.5);
+  color: #324183;
+  border: 1px dashed #98a0ce;
+  box-shadow: none;
+}
+
+/* Canvas Area */
+.group-row {
+  margin-top: 31px;
+  display: flex;
+  gap: 16px;
+  align-items: start;
+  flex: 1;
+}
+
+/* Group container boxes */
+.group-card {
+  position: relative;
+  width: 135px;
+  height: 172px;
+  border: 1px solid #dedcf0;
+  border-radius: 14px;
+  background: rgba(255,255,255,.64);
+  box-shadow: 0 10px 20px rgba(40,38,92,.10);
+  padding: 32px 10px 10px;
+  text-align: center;
+  color: #202b87;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ribbon {
+  position: absolute;
+  left: 12px;
+  top: -8px;
+  width: 24px;
+  height: 31px;
+  background: linear-gradient(#8065ff,#5840d8);
+  color: #fff;
+  border-radius: 4px 4px 0 0;
+  font-weight: 700;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+}
+
+.ribbon:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -7px;
+  border-left: 12px solid #5840d8;
+  border-right: 12px solid #5840d8;
+  border-bottom: 7px solid transparent;
+}
+
+/* Leftovers container box */
+.drop-box-leftovers {
+  position: relative;
+  width: 135px;
+  height: 172px;
+  border: 2px dashed #a9afe2;
+  border-radius: 14px;
+  background: rgba(244, 243, 255, 0.4);
+  padding: 32px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hand {
+  position: absolute;
+  right: -20px;
+  bottom: 20px;
+  font-size: 43px;
+  transform: rotate(-12deg);
+  filter: drop-shadow(0 12px 12px rgba(41,37,93,.18));
+}
+
+/* Result summary bar */
+.result-row {
+  margin: 12px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 56px 285px;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  color: #28249b;
+  font-size: 20px;
+}
+
+.result-row div {
+  min-height: 78px;
+  border: 1px solid #dedcf0;
+  border-radius: 17px;
+  background: rgba(255,255,255,.62);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 8px 12px;
+}
+
+.result-row strong {
+  font-size: 43px;
+  font-weight: 300;
+  color: #4a55a5;
+}
+
+.result-row b {
+  color: #063cff;
+}
+
+/* Right Rail customizations */
+.div-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.div-reason {
+  min-height: 82px;
+  position: relative;
+  margin-top: 8px;
+  border: 1px solid #dfdef0;
+  border-radius: 9px;
+  background: rgba(255,255,255,.66);
+  padding: 11px 10px 3px 48px;
+  color: #17215e;
+  font-size: 14px;
+}
+
+.div-reason > b {
+  position: absolute;
+  left: 14px;
+  top: 13px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,#9b78ff,#4e1fe5);
+  color: #fff;
+  font-size: 13px;
+}
+
+.div-reason svg {
+  margin-top: 2px;
+  width: 100%;
+  height: 40px;
+  display: block;
+}
+
+.div-pred, .div-reveal {
+  padding: 15px 18px;
+  background: rgba(255,255,255,.58);
+  border: 1px solid #dedcf0;
+  border-radius: 20px;
+}
+
+.div-pred h2, .div-reveal h2 {
+  margin: 0 0 8px;
+  color: #2b1bff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.div-pred p {
+  margin: 0 0 12px;
+  font-size: 15px;
+  color: #17215e;
+}
+
+.spin-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.spin-row label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 15px;
+  color: #162279;
+}
+
+.spin-row input {
+  width: 54px;
+  height: 37px;
+  border: 1px solid #d9d8ef;
+  border-radius: 7px;
+  text-align: center;
+  color: #161b58;
+  background: #fff;
+}
+
+.spin-row button {
+  height: 37px;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(#8b64ff,#5529dd);
+  box-shadow: 0 8px 16px rgba(82,43,220,.30);
+  padding: 0 19px;
+}
+
+.div-reveal p {
+  margin: 0 0 10px;
+  font: 19px Georgia, serif;
+  color: #0d1b57;
+}
+
+.div-reveal span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #099c52;
+  font-size: 14px;
+}
+
+.div-reveal small {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 5px 10px;
+  border-radius: 12px;
+  background: #c9f2d8;
+  color: #097d40;
+  font-size: 12px;
+}
+
+/* Proof Flow at Bottom */
+.vp2-proof {
+  height: auto;
+  width: 100%;
+  padding: 15px 28px;
+  background: rgba(255,255,255,.58);
+  border: 1px solid #dedcf0;
+  border-radius: 20px;
+}
+
+.vp2-proof h2 {
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: #2d1cff;
+  font-size: 17px;
+}
+
+.vp2-proof-flow {
+  display: grid;
+  grid-template-columns: 150px 28px 170px 28px 124px 28px 130px;
+  align-items: center;
+  gap: 8px;
+  color: #1c2a78;
+  text-align: center;
+}
+
+.vp2-proof-flow > b {
+  color: #4b30ff;
+  font-size: 31px;
+  font-weight: 300;
+}
+
+.mini-dots {
+  border: 1.5px dashed #8e83ff;
+  border-radius: 10px;
+  min-height: 68px;
+  padding: 12px 18px;
+  display: grid;
+  grid-template-columns: repeat(6, 10px);
+  gap: 9px;
+  place-content: center;
+  background: rgba(255,255,255,.38);
+}
+
+.mini-dots i, .mini-groups i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: block;
+}
+
+.mini-dots.green i {
+  background: #63c97f;
+  box-shadow: inset 0 0 0 1px #3ea05a;
+}
+
+.mini-dots.gold i {
+  background: #ffc84d;
+  box-shadow: inset 0 0 0 1px #eaa11c;
+}
+
+.mini-dots.pale {
+  border: 0;
+  grid-template-columns: repeat(4, 12px);
+  padding: 0;
+  min-height: 38px;
+}
+
+.mini-dots.pale i {
+  width: 12px;
+  height: 12px;
+  background: #d9d5fb;
+}
+
+.mini-proof-part span {
+  display: block;
+  margin-top: 7px;
+  font-size: 14px;
+  color: #1f2a78;
+  line-height: 1.25;
+}
+
+.mini-groups {
+  border: 1.5px dashed #8e83ff;
+  border-radius: 10px;
+  min-height: 68px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 7px;
+  padding: 8px;
+  background: rgba(255,255,255,.38);
+}
+
+.mini-groups div {
+  border: 1px dashed #8e83ff;
+  border-radius: 7px;
+  display: grid;
+  gap: 3px;
+  place-content: center;
+}
+
+.mini-groups i {
+  background: #8c65ff;
+}
+
+.formula-box {
+  height: 70px;
+  border: 1.5px dashed #8e83ff;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  font: 24px Georgia, serif;
+  color: #11194c;
+  background: rgba(255,255,255,.48);
+}
+
+/* Challenge panel */
+.vp2-challenge {
+  padding: 16px 20px;
+  display: grid;
+  grid-template-columns: 1fr 148px;
+  gap: 20px;
+  background: rgba(255,255,255,.58);
+  border: 1px solid #dedcf0;
+  border-radius: 20px;
+}
+
+.vp2-challenge h2 {
+  margin: 0 0 8px;
+  color: #2b1bff;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vp2-challenge p {
+  margin: 0 0 12px;
+  color: #1b2568;
+  font-size: 13.5px;
+}
+
+.challenge-eq {
+  font: 25px Georgia, serif;
+  color: #10258d;
+  margin-bottom: 12px;
+}
+
+.vp2-challenge button {
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  background: linear-gradient(#8b64ff,#5529dd);
+  box-shadow: 0 8px 16px rgba(82,43,220,.30);
+  padding: 0 16px;
+  font-size: 13.5px;
+}
+
+.tip {
+  border: 1px solid #dedcf0;
+  border-radius: 13px;
+  padding: 12px 14px;
+  background: rgba(255,255,255,.38);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tip h2 {
+  font-size: 15px;
+  margin: 0 0 6px;
+  color: #2b1bff;
+}
+
+.tip p {
+  margin: 4px 0 10px;
+  text-align: center;
+  line-height: 1.25;
+  font-size: 12px;
+}
+
+/* Animations and Responsive Styles */
+@media (max-width: 1200px) {
+  .div-page-container {
+    grid-template-columns: 1fr;
+    padding: 12px;
+  }
+  
+  .vp2-workspace {
+    grid-template-columns: 1fr;
+  }
+  
+  .mode-tabs {
+    grid-template-columns: repeat(2, 1fr);
+    height: auto;
+  }
+  
+  .vp2-proof-flow {
+    grid-template-columns: 1fr;
+  }
+  
+  .vp2-proof-flow > b {
+    display: none;
+  }
+}
